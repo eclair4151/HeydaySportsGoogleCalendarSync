@@ -3,6 +3,28 @@ from bs4 import BeautifulSoup
 import datetime
 import google_cal_sync
 import os
+import json
+
+def load_credentials():
+    # Try environment variables first
+    heyday_username = os.getenv("HEYDAY_USERNAME")
+    heyday_password = os.getenv("HEYDAY_PASSWORD")
+
+    # If not found, try loading from JSON file
+    if not heyday_username or not heyday_password:
+        try:
+            with open("heyday_login.json", "r") as f:
+                creds = json.load(f)
+                heyday_username = creds.get("username")
+                heyday_password = creds.get("password")
+        except FileNotFoundError:
+            pass
+
+    if not heyday_username or not heyday_password:
+        raise RuntimeError("Credentials must be set via environment variables or heyday_login.json file")
+
+    return heyday_username, heyday_password
+
 
 # --- Setup ---
 session = requests.Session()
@@ -28,8 +50,7 @@ if not req_token:
     raise RuntimeError("reqToken not found")
 
 # --- Step 3: POST login form ---
-heyday_username = os.getenv("HEYDAY_USERNAME")
-heyday_password = os.getenv("HEYDAY_PASSWORD")
+heyday_username, heyday_password = load_credentials()
 
 if not heyday_username or not heyday_password:
     raise RuntimeError("Environment variables HEYDAY_USERNAME and HEYDAY_PASSWORD must be set")

@@ -39,12 +39,20 @@ Automatically syncs your Heyday sports schedule from their website to your Googl
 
 ### 4. Environment Variables
 
-Set your Heyday login credentials as environment variables:
+Set your Heyday login credentials as environment variables or via a heyday_login.json file:
 
-For macOS/Linux:
+Option 1) environment variables:
 ```bash
 export HEYDAY_USERNAME=your_username
 export HEYDAY_PASSWORD=your_password
+```
+
+Option 2) heyday_login.json file:
+```json
+{
+  "username": "your_username",
+  "password": "your_password"
+}
 ```
 
 ### 5. Initial Authentication
