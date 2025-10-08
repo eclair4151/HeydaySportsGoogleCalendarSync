@@ -56,9 +56,6 @@ if not req_token:
 # --- Step 3: POST login form ---
 heyday_username, heyday_password = load_credentials()
 
-if not heyday_username or not heyday_password:
-    raise RuntimeError("Environment variables HEYDAY_USERNAME and HEYDAY_PASSWORD must be set")
-
 payload = {
     "reqToken": req_token,
     "cmd": "processLogin",

@@ -37,7 +37,7 @@ Automatically syncs your Heyday sports schedule from their website to your Googl
 4. Download the credentials file
 5. Rename it to client_secret.json and place it in the project directory
 
-### 4. Environment Variables
+### 4. Setup Heyday Credentials
 
 Set your Heyday login credentials as environment variables or via a heyday_login.json file:
 
