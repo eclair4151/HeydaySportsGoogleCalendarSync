@@ -39,9 +39,8 @@ def sync_games(games):
 
     game_id_calendar_event_map = {}
     for e in events:
-        if 'extendedProperties' in e and 'private' in e['extendedProperties']:
-            game_id = e['extendedProperties']['private']['game_id']
-            game_id_calendar_event_map[game_id] = e
+        game_id = e['extendedProperties']['private']['game_id']
+        game_id_calendar_event_map[game_id] = e
 
 
     for game in games:
@@ -77,12 +76,11 @@ def sync_games(games):
             print(f"Created game {gid}")
 
 
-    current_game_ids = {game['id'] for game in games}
+    heyday_game_ids_set = {game['id'] for game in games}
     for calendar_event_game_id, event in game_id_calendar_event_map.items():
-        if calendar_event_game_id not in current_game_ids:
+        if calendar_event_game_id not in heyday_game_ids_set:
             service.events().delete(
                 calendarId='primary',
                 eventId=event['id']
             ).execute()
             print(f"Deleted game {calendar_event_game_id}")
-
