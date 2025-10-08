@@ -13,7 +13,9 @@ def load_credentials():
     # If not found, try loading from JSON file
     if not heyday_username or not heyday_password:
         try:
-            with open("heyday_login.json", "r") as f:
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            json_path = os.path.join(script_dir, "heyday_login.json")
+            with open(json_path, "r") as f:
                 creds = json.load(f)
                 heyday_username = creds.get("username")
                 heyday_password = creds.get("password")
@@ -27,6 +29,9 @@ def load_credentials():
 
 
 # --- Setup ---
+BASE_URL = "https://philadelphia.leaguelab.com"
+
+login_url =BASE_URL + "/login"
 session = requests.Session()
 session.headers.update({
     "User-Agent": (
@@ -34,11 +39,10 @@ session.headers.update({
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/128.0.0.0 Safari/537.36"
     ),
-    "Referer": "https://philadelphia.leaguelab.com/login",
+    "Referer": login_url,
 })
 
 # --- Step 1: GET login page ---
-login_url = "https://philadelphia.leaguelab.com/login"
 resp = session.get(login_url)
 resp.raise_for_status()
 
@@ -68,7 +72,7 @@ post_resp = session.post(login_url, data=payload, allow_redirects=True)
 post_resp.raise_for_status()
 
 # --- Step 4: Fetch player schedule ---
-schedule_url = "https://philadelphia.leaguelab.com/player/schedule"
+schedule_url = BASE_URL + "/player/schedule"
 sched_resp = session.get(schedule_url)
 sched_resp.raise_for_status()
 

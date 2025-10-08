@@ -1,17 +1,20 @@
 from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
-
+import os
 from datetime import datetime, timedelta, timezone
 
 SCOPES = ['https://www.googleapis.com/auth/calendar.events']
 
 def get_service():
-    creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    json_path = os.path.join(script_dir, "token.json")
+
+    creds = Credentials.from_authorized_user_file(json_path, SCOPES)
     if creds.expired and creds.refresh_token:
         print('Refreshing token')
         creds.refresh(Request())
-        with open('token.json', 'w') as f:
+        with open(json_path, 'w') as f:
             f.write(creds.to_json())
     return build('calendar', 'v3', credentials=creds)
 
