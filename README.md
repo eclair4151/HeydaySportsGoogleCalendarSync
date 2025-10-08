@@ -81,7 +81,9 @@ The script will:
 
 Install required packages:
 
-pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client requests beautifulsoup4
+```bash
+pip install -r requirements.txt
+```
 
 ## Notes
 
