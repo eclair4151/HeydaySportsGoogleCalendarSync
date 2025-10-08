@@ -117,5 +117,5 @@ for date_div in soup.select("#upcomingDatesContainer .myScheduleDate"):
             "location": location.get_text(strip=True) if location else "",
         })
 
-print(f'Found {len(games)} scheduled games on the schedule')
+print(f'Found {len(games)} scheduled games on Heyday')
 google_cal_sync.sync_games(games)
