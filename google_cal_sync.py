@@ -52,7 +52,7 @@ def sync_games(games):
         event_data = {
             'summary': f"{game['my_team']} vs {game['opponent']}",
             'location': f"{game['location']}",
-            'description': f'<a href="{opponent_url}">View Opponent Standings</a>',
+            'description': f'View Opponent Standings: {opponent_url}',
             'start': {'dateTime': start_dt.isoformat()},
             'end': {'dateTime': end_dt.isoformat()},
             'extendedProperties': {'private': {'game_id': gid}},
