@@ -57,8 +57,12 @@ def sync_games(games, game_length_mins, reminder_mins):
         if reminder_mins != -1:
             reminders['overrides'].append({'method': 'popup', 'minutes': reminder_mins})
 
+        summary = f"{game['my_team']} vs {game['opponent']}"
+        if 'sport_name' in game and game['sport_name']:
+            summary = f"{game['sport_name']}: {summary}"
+
         event_data = {
-            'summary': f"{game['my_team']} vs {game['opponent']}",
+            'summary': summary,
             'location': f"{game['location']}",
             'description': f'View Opponent Standings: {opponent_url}',
             'start': {'dateTime': start_dt.isoformat()},

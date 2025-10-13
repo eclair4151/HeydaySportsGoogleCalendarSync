@@ -93,10 +93,12 @@ The script will:
 ## Files
 
 - main.py - Main script that scrapes schedule and triggers sync
-- google_auth.py - One-time authentication setup
+- heyday_parser.py - Heyday website scraper
 - google_cal_sync.py - Google Calendar API integration
+- google_auth.py - One-time authentication setup
 - client_secret.json - Google OAuth credentials (you provide)
 - token.json - Generated OAuth token (created by google_auth.py)
+- heyday_login.json - Heyday login credentials (you provide, optional)
 
 ## Requirements
 
