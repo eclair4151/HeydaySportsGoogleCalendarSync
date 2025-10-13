@@ -5,6 +5,12 @@ import google_cal_sync
 import os
 import json
 
+# How long to block off on the calendar for each game
+GAME_LENGTH_MINS = 60
+
+# How many minutes before the game to send a reminder (-1 for no reminder)
+GAME_REMINDER_ALERT_MINS = 30
+
 
 def main():
     # --- Setup ---
@@ -119,7 +125,7 @@ def main():
             })
 
     print(f'Found {len(games)} scheduled games on Heyday')
-    google_cal_sync.sync_games(games)
+    google_cal_sync.sync_games(games, GAME_LENGTH_MINS, GAME_REMINDER_ALERT_MINS)
 
 
 def load_credentials():

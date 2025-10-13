@@ -18,7 +18,7 @@ def get_service():
             f.write(creds.to_json())
     return build('calendar', 'v3', credentials=creds)
 
-def sync_games(games):
+def sync_games(games, game_length_mins, reminder_mins):
     service = get_service()
     now = datetime.now(timezone.utc).isoformat()
 
@@ -46,8 +46,16 @@ def sync_games(games):
     for game in games:
         gid = game['id']
         start_dt = datetime.fromtimestamp(game['game_time'], tz=timezone.utc)
-        end_dt = start_dt + timedelta(hours=2)
+        end_dt = start_dt + timedelta(minutes=game_length_mins)
         opponent_url = game['opponent_url']
+
+        reminders = {
+            'useDefault': False,
+            'overrides': []
+        }
+
+        if reminder_mins != -1:
+            reminders['overrides'].append({'method': 'popup', 'minutes': reminder_mins})
 
         event_data = {
             'summary': f"{game['my_team']} vs {game['opponent']}",
@@ -56,6 +64,7 @@ def sync_games(games):
             'start': {'dateTime': start_dt.isoformat()},
             'end': {'dateTime': end_dt.isoformat()},
             'extendedProperties': {'private': {'game_id': gid}},
+            'reminders': reminders
         }
 
         existing = game_id_calendar_event_map.get(gid)

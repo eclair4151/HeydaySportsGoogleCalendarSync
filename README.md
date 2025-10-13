@@ -66,6 +66,19 @@ This will:
 - Generate a token.json file for future API access
 - This only needs to be done once
 
+### 6. Configure Calendar Preferences
+
+You can customize calendar event settings by modifying the constants at the top of `main.py`:
+
+- **GAME_LENGTH_MINS**: Duration to block off on the calendar for each game (default: 60 minutes)
+- **GAME_REMINDER_ALERT_MINS**: Minutes before the game to send a reminder alert (default: 30 minutes, set to -1 for no reminder)
+
+Example configuration:
+```python
+GAME_LENGTH_MINS = 60
+GAME_REMINDER_ALERT_MINS = 30
+```
+
 ## Usage
 
 Run the main sync script:
