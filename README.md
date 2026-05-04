@@ -1,5 +1,7 @@
 # Heyday Schedule -> Google Calendar Sync
 
+# As of 2026 this repo has been archived, Heyday now offers native calendar syncing so this is no longer needed.
+
 Automatically syncs your Heyday sports schedule from their website to your Google Calendar.
 
 ## Features
